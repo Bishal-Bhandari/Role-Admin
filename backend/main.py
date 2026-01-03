@@ -1,6 +1,6 @@
 from flask import request, jsonify
 from config import app, db
-from models import ContextDecorator
+from models import Contact
 
 @app.route("/contacts", methods=["GET"])
 def get_contacts():
