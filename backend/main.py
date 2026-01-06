@@ -12,7 +12,7 @@ def get_contacts():
 def create_contact():
     first_name = request.json.get("firstName")
     last_name = request.json.get("lastName")
-    email = request.json.get("email")
+    email = request.json.get("email") 
 
     if not first_name or not last_name or not email:
         return(
@@ -26,6 +26,7 @@ def create_contact():
         return jsonify({"message":ste(e)}), 400
     
     return jsonify({"message": "User created!"}), 201
+
 
 
 
