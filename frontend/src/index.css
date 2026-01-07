@@ -1,3 +1,4 @@
-th {
-margin: 10px;
-}
+input, button, label{
+    font-family: Arial, sans-serif;
+    margin-top: 10px;
+  }

@@ -1,47 +1,65 @@
-import { useState, useEffect } from 'react';
-import ContactList from './ContactList';
-import ContactForm from './ContactForm';
-import './App.css';
+import { useState, useEffect } from "react";
+import ContactList from "./ContactList";
+import ContactForm from "./ContactForm";
+import "./App.css";
 
 function App() {
   const [contacts, setContacts] = useState([]);
-  const [isModelOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
+  // Fetch contacts on page load
   useEffect(() => {
-    fetchContacts()
+    fetchContacts();
   }, []);
 
+  // GET contacts
   const fetchContacts = async () => {
-    const response = await fetch("http://127.0.0.1:5000/contacts");
-    const data = await response.json();
-    setContacts(data.contacts.filter(Boolean));
-    console.log(data.contacts);
-  }
+    try {
+      const response = await fetch("http://127.0.0.1:5000/contacts");
+      const data = await response.json();
+      setContacts(Array.isArray(data.contacts) ? data.contacts.filter(Boolean) : []);
+    } catch (error) {
+      console.error("Failed to fetch contacts:", error);
+    }
+  };
 
-  const closreModal = () => {
-    setIsModalOpen(false);
-  }
-
+  // Open modal
   const openCreateModal = () => {
-    if (!isModelOpen) setIsModalOpen(true);
-  }
+    setIsModalOpen(true);
+  };
+
+  // Close modal
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <>
-  <ContactList contacts={contacts}/>
-  <button onClick={openCreateModal}>Create Contact</button>
-  {isModelOpen && <div className="modal">
-    <div className="modal-content">
-      <span className="close" onClick={closreModal}>&times;</span>
-      <ContactForm />
-    </div>
-  </div>
+      <h1>Contact Manager</h1>
 
-  }
-  <ContactForm/>
-  </>
-);
+      <ContactList contacts={contacts} />
 
+      <button onClick={openCreateModal}>Create Contact</button>
+
+      {isModalOpen && (
+        <div className="modal">
+          <div className="modal-content">
+            <span className="close" onClick={closeModal}>
+              &times;
+            </span>
+
+            {/* Pass callbacks to refresh list and close modal */}
+            <ContactForm
+              onSuccess={() => {
+                fetchContacts();
+                closeModal();
+              }}
+            />
+          </div>
+        </div>
+      )}
+    </>
+  );
 }
 
 export default App;

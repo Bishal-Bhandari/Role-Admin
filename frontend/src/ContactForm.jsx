@@ -13,7 +13,7 @@ const ContactForm = ({}) => {
             lastName,
             email
         }
-        const url = "http://127.0.0.1.5000/create_contact"
+        const url = "http://127.0.0.1:5000/create_contact"
         const option ={
             method: "POST",
             headers: {
@@ -30,7 +30,8 @@ const ContactForm = ({}) => {
         }
     }
 
-    return (<form>
+    return (
+    <form onSubmit={onSubmit}>
         <div>
             <label htmlFor="firstName">First Name:</label>
             <input 
