@@ -6,7 +6,7 @@ import "./App.css";
 function App() {
   const [contacts, setContacts] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const [currentContact, setCurrentContact] = useState({})
   // Fetch contacts on page load
   useEffect(() => {
     fetchContacts();
@@ -30,14 +30,26 @@ function App() {
 
   // Close modal
   const closeModal = () => {
-    setIsModalOpen(false);
+    setIsModalOpen(false)
+    setCurrentContact({})
   };
+
+  const openEditModal = (contact) => {
+    if (isModalOpen) return
+    setCurrentContact(contact)
+    setIsModalOpen(true)  
+  }
+
+  const onUpdate = () => {
+    fetchContacts();
+    closeModal();
+  }
 
   return (
     <>
       <h1>Contact Manager</h1>
 
-      <ContactList contacts={contacts} />
+      <ContactList contacts={contacts} updateContact = {openEditModal} updateCallback={onUpdate}/>
 
       <button onClick={openCreateModal}>Create Contact</button>
 
@@ -48,9 +60,9 @@ function App() {
               &times;
             </span>
 
-            {/* Pass callbacks to refresh list and close modal */}
             <ContactForm
-              onSuccess={() => {
+              existingContact={currentContact}
+              updateCallback={() => {
                 fetchContacts();
                 closeModal();
               }}

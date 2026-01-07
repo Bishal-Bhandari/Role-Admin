@@ -1,6 +1,6 @@
 import React from "react"
 
-const ContactList = ({ contacts }) => {
+const ContactList = ({ contacts, updateContact, updatecallback }) => {
     return <div>
         <h2>Contacts</h2>
         <table>
@@ -21,7 +21,7 @@ const ContactList = ({ contacts }) => {
                      <td>{contact.lastName}</td>
                      <td>{contact.email}</td>
                      <td>
-                        <button>Edit</button>
+                        <button onClick={() => updateContact(contact)}>Edit</button>
                         <button>Delete</button>
                      </td>
                      </tr>
