@@ -23,7 +23,7 @@ def create_contact():
         db.session.add(new_contact)
         db.session.commit()
     except Exception as e:
-        return jsonify({"message":ste(e)}), 400
+        return jsonify({"message":str(e)}), 400
     
     return jsonify({"message": "User created!"}), 201
 
