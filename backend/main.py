@@ -27,7 +27,7 @@ def create_contact():
     
     return jsonify({"message": "User created!"}), 201
 
-@app.route("/update_contact/<int:id>", methods=["PUT"])
+@app.route("/update_contact/<int:id>", methods=["PATCH"])
 def update_contact(id):
     contact = Contact.query.get(id)
 
