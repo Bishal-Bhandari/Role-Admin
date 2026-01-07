@@ -46,7 +46,7 @@ def update_contact(id):
 
 @app.route("/delete_contact/<int:id>", methods=["DELETE"])
 def delete_contact(id):
-    contact = Contact.query.get(user_id)
+    contact = Contact.query.get(id)
 
     if not contact:
         return jsonify({"message": "Contact not found."}), 404
