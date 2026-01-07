@@ -14,6 +14,20 @@ const ContactFrom = ({}) => {
             email
         }
         const url = "http://127.0.0.1.5000/create_contact"
+        const option ={
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        }
+        const response = await fetch(url, option)
+        if (response.status !== 201 && response.status !== 200) {
+            const data = await response.json()
+            alert(data.message)
+        } else{
+            //success
+        }
     }
 
     return (<form>
