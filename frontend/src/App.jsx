@@ -5,6 +5,7 @@ import './App.css';
 
 function App() {
   const [contacts, setContacts] = useState([]);
+  const [isModelOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     fetchContacts()
@@ -17,9 +18,26 @@ function App() {
     console.log(data.contacts);
   }
 
+  const closreModal = () => {
+    setIsModalOpen(false);
+  }
+
+  const openCreateModal = () => {
+    if (!isModelOpen) setIsModalOpen(true);
+  }
+
   return (
     <>
   <ContactList contacts={contacts}/>
+  <button onClick={openCreateModal}>Create Contact</button>
+  {isModelOpen && <div className="modal">
+    <div className="modal-content">
+      <span className="close" onClick={closreModal}>&times;</span>
+      <ContactForm />
+    </div>
+  </div>
+
+  }
   <ContactForm/>
   </>
 );
