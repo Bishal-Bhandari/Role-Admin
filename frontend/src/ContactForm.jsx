@@ -17,7 +17,7 @@ const ContactForm = ({existingContact = {}, updateCallback}) => {
         }
         const url = "http://127.0.0.1:5000/" + (updating ? `update_contact/${existingContact.id}` : "create_contact")
         const option ={
-            method: "POST",
+            method: updating ? "PATCH" : "POST",
             headers: {
                 "Content-Type": "application/json"
             },
@@ -61,7 +61,7 @@ const ContactForm = ({existingContact = {}, updateCallback}) => {
             onChange={(e) => setEmail(e.target.value)}
             />
         </div>
-        <button type="submit">Add Contact</button>
+        <button type="submit">{updating ? "Update" : "Create"}</button>
     </form>
     );
 };
