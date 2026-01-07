@@ -41,8 +41,8 @@ function App() {
   }
 
   const onUpdate = () => {
-    fetchContacts();
     closeModal();
+    fetchContacts();
   }
 
   return (
@@ -62,11 +62,7 @@ function App() {
 
             <ContactForm
               existingContact={currentContact}
-              updateCallback={() => {
-                fetchContacts();
-                closeModal();
-              }}
-            />
+              updateCallback={onUpdate}/>
           </div>
         </div>
       )}
