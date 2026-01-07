@@ -28,6 +28,17 @@ def create_contact():
     return jsonify({"message": "User created!"}), 201
 
 
+@app.route("/delete_contact/<int:id>", methods=["DELETE"])
+def delete_contact(id):
+    contact = Contact.query.get(user_id)
+
+    if not contact:
+        return jsonify({"message": "Contact not found."}), 404
+    
+    db.session.delete(contact)
+    db.session.commit()
+
+    return jsonify({"message": "Contact deleted."}), 200
 
 
 if __name__ == "__main__":
