@@ -1,25 +1,22 @@
 import { useState, useEffect } from 'react'
+import ContactList from './ContactList'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState([])
+  const [contacts, setContacts] = useState([])
 
   useEffect(() => {
     fetchContacts()
   }, [])
 
   const fetchContacts = async () => {
-    const response = await fetch('http://localhost:8000/contacts/')
+    const response = await fetch("http://127.0.0.1:5000/contacts")
     const data = await response.json()
-    setContacts(data.contacts)
+    setContacts(data.contacts.filter(Boolean))
     console.log(data.contacts)
   }
-  
-  return (
-    <>
-      
-    </>
-  )
+
+  return <ContactList contacts={contacts}/>
 }
 
 export default App
